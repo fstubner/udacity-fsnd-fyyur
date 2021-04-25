@@ -1,6 +1,8 @@
 #----------------------------------------------------------------------------#
 # Imports
 #----------------------------------------------------------------------------#
+from sqlalchemy import Column, ForeignKey, Integer, String, Boolean, DateTime
+from sqlalchemy.orm import relationship
 from fyyur import db
 
 
@@ -8,43 +10,59 @@ from fyyur import db
 # Models
 #----------------------------------------------------------------------------#
 class Venue(db.Model):
-    __tablename__ = 'Venue'
+    __tablename__ = 'venues'
 
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String)
-    city = db.Column(db.String(120))
-    state = db.Column(db.String(120))
-    address = db.Column(db.String(120))
-    phone = db.Column(db.String(120))
-    # genres
-    facebook_link = db.Column(db.String(120))
-    image_link = db.Column(db.String(500))
-    # website link
-    # looking for talent
-    # seeking description
+    id = Column(Integer, primary_key=True)
+    name = Column(String, nullable=False)
+    city = Column(String(120), nullable=False)
+    state = Column(String(120), nullable=False)
+    address = Column(String(120), nullable=False)
+    phone = Column(String(120))
+    genres = Column(String(120), nullable=False)
+    facebook_link = Column(String(120))
+    image_link = Column(String(500))
+    website_link = Column(String(120))
+    looking_for_talent = Column(Boolean, nullable=False, default=False)
+    seeking_description = Column(String(500))
+    shows = relationship(
+        'artists',
+        backref='venue',
+        secondary='shows',
+        cascade='all, delete-orphan',
+        lazy=True
+    )
 
-    # TODO: implement any missing fields, as a database migration using Flask-Migrate
+    # TODO: implement any missing fields, as a database migration using Flask-Migrate - DONE
 
 class Artist(db.Model):
-    __tablename__ = 'Artist'
+    __tablename__ = 'artists'
 
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String)
-    city = db.Column(db.String(120))
-    state = db.Column(db.String(120))
-    phone = db.Column(db.String(120))
-    genres = db.Column(db.String(120))
-    facebook_link = db.Column(db.String(120))
-    image_link = db.Column(db.String(500))
-    # website link
-    # looking for venues
-    # seeking description
+    id = Column(Integer, primary_key=True)
+    name = Column(String, nullable=False)
+    city = Column(String(120), nullable=False)
+    state = Column(String(120), nullable=False)
+    phone = Column(String(120))
+    genres = Column(String(120), nullable=False)
+    facebook_link = Column(String(120))
+    image_link = Column(String(500))
+    website_link = Column(String(120))
+    looking_for_venues = Column(Boolean, nullable=False, default=False)
+    seeking_description = Column(String(500))
+    shows = relationship(
+        'venues',
+        backref='artist',
+        secondary='shows',
+        cascade='all, delete-orphan',
+        lazy=True
+    )
 
-    # TODO: implement any missing fields, as a database migration using Flask-Migrate
+    # TODO: implement any missing fields, as a database migration using Flask-Migrate - DONE
 
-# TODO Implement Show and Artist models, and complete all model relationships and properties, as a database migration.
+# TODO Implement Show and Artist models, and complete all model relationships and properties, as a database migration. - DONE
 
 class Show(db.Model):
-  __tablename__ = 'Shows'
+    __tablename__ = 'shows'
 
-  id = db.Column(db.Integer, primary_key=True)
+    venue_id = Column(Integer, ForeignKey('venues.id', ondelete='CASCADE'), primary_key=True)
+    artist_id = Column(Integer, ForeignKey('artists.id', ondelete='CASCADE'), primary_key=True)
+    start_time = Column(DateTime, nullable=False)
