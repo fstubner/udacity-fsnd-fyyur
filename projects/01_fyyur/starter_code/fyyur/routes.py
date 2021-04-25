@@ -1,14 +1,16 @@
-import json
-from flask import Flask, render_template, request, Response, flash, redirect, url_for
+#----------------------------------------------------------------------------#
+# Imports
+#----------------------------------------------------------------------------#
+from flask import render_template, request, flash, redirect, url_for
 from fyyur import app
 from fyyur.forms import *
 from fyyur.models import Artist, Venue # Show
-from flask_wtf import FlaskForm
 
 
 #----------------------------------------------------------------------------#
-# Controllers
+# Routes
 #----------------------------------------------------------------------------#
+
 #  View Venues
 #  -----------------------------------
 @app.route('/venues')

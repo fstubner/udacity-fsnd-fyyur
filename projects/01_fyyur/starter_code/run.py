@@ -1,6 +1,10 @@
+#----------------------------------------------------------------------------#
+# Imports
+#----------------------------------------------------------------------------#
 import logging
 from logging import Formatter, FileHandler
 from fyyur import app
+
 
 #----------------------------------------------------------------------------#
 # Launch
@@ -15,11 +19,11 @@ if not app.debug:
     app.logger.addHandler(file_handler)
     app.logger.info('errors')
 
-# Default port:
+# Default port
 if __name__ == '__main__':
     app.run()
 
-# Or specify port manually:
+# Or specify port manually
 '''
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))

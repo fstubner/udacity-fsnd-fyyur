@@ -13,7 +13,7 @@ from flask_migrate import Migrate
 # App Config
 #----------------------------------------------------------------------------#
 app = Flask(__name__)
-app.config.from_object('../config')
+app.config.from_object('fyyur.config')
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 moment = Moment(app)
@@ -21,7 +21,6 @@ moment = Moment(app)
 from fyyur import routes
 
 # TODO: connect to a local postgresql database - DONE
-
 
 
 #----------------------------------------------------------------------------#

@@ -1,8 +1,15 @@
+#----------------------------------------------------------------------------#
+# Imports
+#----------------------------------------------------------------------------#
 from datetime import datetime
 from flask_wtf import FlaskForm
 from wtforms import StringField, SelectField, SelectMultipleField, DateTimeField, BooleanField
 from wtforms.validators import DataRequired, URL
 
+
+#----------------------------------------------------------------------------#
+# Forms
+#----------------------------------------------------------------------------#
 class ShowForm(FlaskForm):
     artist_id = StringField(
         'artist_id'
