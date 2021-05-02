@@ -5,7 +5,7 @@
 from datetime import datetime
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql.schema import Column, ForeignKey
-from sqlalchemy.sql.sqltypes import Integer, String, Boolean, DateTime, JSON
+from sqlalchemy.sql.sqltypes import Integer, String, Boolean, JSON
 from fyyur import db
 
 
