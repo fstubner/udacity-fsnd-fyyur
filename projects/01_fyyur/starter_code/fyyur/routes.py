@@ -30,7 +30,7 @@ def venues():
         data.append({
             "city": cas.city,
             "state": cas.state,
-            "venues": [venue.serialize_venue_with_upcoming_shows for venue in venues_in_cas]
+            "venues": [venue.with_upcoming_shows for venue in venues_in_cas]
         })
 
     return render_template('pages/venues.html', areas=data)
@@ -45,7 +45,7 @@ def search_venues():
         f"%{request.form.get('search_term')}%")).all()
     response = {
         "count": len(venues),
-        "data": [venue.serialize_venue_with_upcoming_shows for venue in venues]
+        "data": [venue.with_upcoming_shows for venue in venues]
     }
     return render_template('pages/search_venues.html', results=response, search_term=request.form.get('search_term', ''))
 
@@ -241,7 +241,7 @@ def search_artists():
         f"%{request.form.get('search_term')}%")).all()
     response = {
         "count": len(artists),
-        "data": [artist.serialize_artist_with_upcoming_shows for artist in artists]
+        "data": [artist.with_upcoming_shows for artist in artists]
     }
     return render_template('pages/search_artists.html', results=response, search_term=request.form.get('search_term', ''))
 

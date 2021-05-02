@@ -48,7 +48,7 @@ class Venue(db.Model):
     )
 
     @property
-    def serialize_venue_with_upcoming_shows(self):
+    def with_upcoming_shows(self):
         num_upcoming_shows = []
         for show in self.shows:
             if datetime.strptime(show.start_time, '%Y-%m-%d %H:%M:%S') > datetime.now():
@@ -85,7 +85,7 @@ class Artist(db.Model):
     )
 
     @property
-    def serialize_artist_with_upcoming_shows(self):
+    def with_upcoming_shows(self):
         num_upcoming_shows = []
         for show in self.shows:
             if datetime.strptime(show.start_time, '%Y-%m-%d %H:%M:%S') > datetime.now():
